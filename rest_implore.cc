@@ -14,6 +14,16 @@
 
 using namespace std;
 
+string getenvstring(const char *default_value, const char *key){
+    const char *value = getenv(key);
+    string ret = default_value;
+
+    if(value)
+        ret.assign(value);
+
+    return ret;
+}
+
 int main(int argc, char **argv){
     bool interactive = isatty(fileno(stdin));
 
@@ -33,13 +43,7 @@ int main(int argc, char **argv){
     }
 
     // Use environment var for Host if available.
-    string hostname = "nse-rest-ace";
-    {
-        const char *server = getenv("server");
-
-        if(server)
-            hostname.assign(server);
-    }
+    string hostname = getenvstring("test-host", "server");
 
     headers.push_back("Connection: close");
     headers.push_back("Host: " + hostname);
@@ -62,10 +66,12 @@ int main(int argc, char **argv){
     string text_headers, text_body;
 
     if(body.size()){
+        string content_type = getenvstring("application/json", "content_type");
+
         for(auto a : body)
             text_body.append(a + "\n");
 
-        headers.push_back("Content-Type: application/json");
+        headers.push_back("Content-Type: " + content_type);
         headers.push_back("Content-Length: " + to_string(text_body.length() - 1));
     }
 

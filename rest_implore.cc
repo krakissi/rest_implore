@@ -30,6 +30,7 @@ string getenvstring(const char *default_value, const char *key){
 
 int main(int argc, char **argv){
     bool interactive = isatty(fileno(stdin));
+    bool first_line = true;
 
     string str;
     vector<string> headers, body;
@@ -38,6 +39,17 @@ int main(int argc, char **argv){
     while(getline(cin, str).good()){
         if(str.length() == 0)
             break;
+
+        // Automatically insert HTTP/1.1 if no protocol is specified in this line.
+        if(first_line){
+            first_line = false;
+
+            int last = str.find_last_of(' ');
+            int first = str.find_first_of(' ');
+
+            if(first == last)
+                str.append(" HTTP/1.1");
+        }
 
         headers.push_back(str);
 

@@ -47,7 +47,7 @@ int main(int argc, char **argv){
             int last = str.find_last_of(' ');
             int first = str.find_first_of(' ');
 
-            if(first == last)
+            if((last > 0) && ((first == last) || (str.substr(last).length() <= 1)))
                 str.append(" HTTP/1.1");
         }
 

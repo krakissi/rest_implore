@@ -4,6 +4,10 @@
 
     A basic utility for creating HTTP REST API calls. The output can be piped
     into netcat or a similar utility to interact with a remote API.
+
+    Environment variables for configuration:
+        $server - Host request header
+        $content_type - Content-Type request header
 */
 #include <iostream>
 #include <string>

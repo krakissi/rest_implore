@@ -17,7 +17,7 @@ fi
 export implore
 
 # Verify netcat is installed/executable.
-if [ -z "$(which nc)" ]; then
+if ! [ -x "$(which nc)" ]; then
     echo "FATAL: netcat (nc) is not available."
     exit 2
 fi

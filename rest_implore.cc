@@ -1,3 +1,10 @@
+/*
+    rest_implore
+    mperron (2016)
+
+    A basic utility for creating HTTP REST API calls. The output can be piped
+    into netcat or a similar utility to interact with a remote API.
+*/
 #include <iostream>
 #include <string>
 #include <vector>

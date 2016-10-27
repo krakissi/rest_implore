@@ -5,7 +5,7 @@ export port=${port:-8080}
 # Use the installed version if present, else attempt to use the local bin.
 implore=$(which rest_implore)
 
-if [ -z "$implore" ] || ! [ -x "$implore" ]; then
+if ! [ -x "$implore" ]; then
     implore="./rest_implore"
 fi
 

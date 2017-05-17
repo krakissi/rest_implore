@@ -79,6 +79,15 @@ int main(int argc, char **argv){
     if(interactive)
         cerr << endl << "--- --- ---" << endl;
 
+    {
+        string token = getenvstring("", "token");
+
+        if(token.length()){
+            token = ("Authorization: Bearer " + token);
+            headers.push_back(token);
+        }
+    }
+
     string text_headers, text_body;
 
     if(body.size()){
@@ -96,6 +105,14 @@ int main(int argc, char **argv){
 
     // Send request.
     cout << text_headers << endl << text_body;
+
+    if(interactive)
+        (cerr
+            << "Sending request: " << endl
+            << "--" << endl
+            << text_headers << endl
+            << text_body << endl
+            << "--");
 
     return 0;
 }
